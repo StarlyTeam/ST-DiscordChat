@@ -1,0 +1,63 @@
+# + -------------------------------------------------------------------------------- + #
+# | BOT SETTINGS ( 봇 설정 )
+# |
+# | 임베드 사용법 (예시)
+# |  Embed:
+# |    title: ""
+# |    content: ""
+# |    footer: ""
+# |    color: "0x00CCFF"
+# + -------------------------------------------------------------------------------- + #
+bot:
+  # 실행 될 봇 토큰 (TOKEN) - 필수로 입력하세요!
+  token:
+
+  # 봇 상태 설정 [ ONLINE (온라인), IDLE (자리비움), DND (다른 용무중) ]
+  status: ONLINE
+
+  # 디스코트 채팅 마인크래프트로 연동
+  # {user} 로 닉네임 불러오기
+  discordMessage: ">> <{user}>"
+
+  # 서버 열릴때
+  onServer:
+    channelID: "000000000000000000"
+    # 알림 메시지
+    content:
+    # 알림 임베드
+    Embed:
+      title:
+      content:
+      footer:
+      color:
+
+  # 서버 닫힐 때
+  offServer:
+    # 알림을 보낼 채널
+    channelID: "000000000000000000"
+    # 알림 메시지
+    content:
+    # 알림 임베드
+    Embed:
+      title:
+      content:
+      footer:
+      color:
+
+  channel:
+    # 마인크래프트와 연동할 채팅 채널 ID
+    chat: "000000000000000000"
+
+  # 봇 활동 설정
+  presence:
+
+    # 봇 활동 상태 설정 (Type) [ PLAYING (~하는중), STREAMING (~방송중), LISTENING (~듣는중), WATCHING (~보는중), COMPETING (~참여중) ]
+    type: PLAYING
+
+    # 봇 활동 메시지 설정
+    text: "Minecraft"
+
+
+webhook:
+  # 유저 메시지와 연동할 웹훅 URL
+  url:
