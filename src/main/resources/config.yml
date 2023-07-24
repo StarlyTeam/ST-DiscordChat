@@ -17,11 +17,14 @@ bot:
 
   # 디스코트 채팅 마인크래프트로 연동
   # {user} 로 닉네임 불러오기
-  discordMessage: ">> <{user}>"
+  discordMessage: ">> <{user}> {message}"
+
+  # 웹훅 URL
+  webhookUrl: 'URL 넣으세요.'
 
   # 서버 열릴때
   onServer:
-    channelID: "000000000000000000"
+    channelId: "000000000000000000"
     # 알림 메시지
     content:
     # 알림 임베드
@@ -56,8 +59,3 @@ bot:
 
     # 봇 활동 메시지 설정
     text: "Minecraft"
-
-
-webhook:
-  # 유저 메시지와 연동할 웹훅 URL
-  url:

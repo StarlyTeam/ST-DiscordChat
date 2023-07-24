@@ -24,6 +24,8 @@ dependencies {
     // OTHER DEPENDENCIES
     compileOnly "net.starly.core:ST-Core:1.8.1"
     api "net.dv8tion:JDA:5.0.0-alpha.22"
+    api 'club.minnced:discord-webhooks:0.8.2'
+
 }
 
 tasks.withType(JavaCompile).configureEach {

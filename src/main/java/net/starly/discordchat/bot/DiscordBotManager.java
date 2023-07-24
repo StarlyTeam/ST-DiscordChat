@@ -27,7 +27,10 @@ public class DiscordBotManager {
         this.log = plugin.getLogger();
 
         try {
-            if (config.getString("bot.token") == null) { log.severe("토큰이 존재하지 않습니다."); return; }
+            if (config.getString("bot.token") == null) {
+                log.severe("토큰이 존재하지 않습니다.");
+                return;
+            }
             JDABuilder builder = JDABuilder.createDefault(config.getString("bot.token"));
             jda = builder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES)
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
@@ -35,7 +38,7 @@ public class DiscordBotManager {
                     .setEnableShutdownHook(false)
                     .setActivity(parseActivity())
                     .setStatus(parseOnlineStatus())
-                    .addEventListeners(new MessageReceivedListener())
+                    .addEventListeners(new MessageReceivedListener(plugin))
                     .build();
             jda.awaitReady();
 
@@ -64,9 +67,6 @@ public class DiscordBotManager {
     }
 
     public void shutdown() {
-        try {
-            jda.shutdown();
-        } catch (NoClassDefFoundError ignored) {
-        }
+        jda.shutdown();
     }
 }
