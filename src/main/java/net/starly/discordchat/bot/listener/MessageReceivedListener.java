@@ -1,12 +1,10 @@
 package net.starly.discordchat.bot.listener;
 
-import lombok.AllArgsConstructor;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.starly.discordchat.DiscordChat;
 import net.starly.discordchat.context.MessageContent;
 import net.starly.discordchat.context.MessageType;
 import org.bukkit.plugin.java.JavaPlugin;

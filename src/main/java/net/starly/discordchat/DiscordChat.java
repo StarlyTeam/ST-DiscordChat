@@ -3,12 +3,10 @@ package net.starly.discordchat;
 import lombok.Getter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import net.starly.core.bstats.Metrics;
 import net.starly.discordchat.bot.DiscordBotManager;
 import net.starly.discordchat.command.ReloadConfigCommand;
 import net.starly.discordchat.context.MessageContent;
 import net.starly.discordchat.listener.AsyncPlayerChatListener;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.awt.*;
@@ -21,16 +19,15 @@ public class DiscordChat extends JavaPlugin {
     private DiscordBotManager bot;
     public String getString(String name) { return getConfig().getString(name); }
 
-    private String getStr(String path) {
-        return getConfig().getString(path);
+    @Override
+    public void onLoad() {
+        instance = this;
     }
 
     @Override
     public void onEnable() {
         /* SETUP
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        instance = this;
-        new Metrics(this, 12345); // TODO: 수정
 
         /* CONFIG
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
