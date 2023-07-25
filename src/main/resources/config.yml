@@ -10,7 +10,7 @@
 # + -------------------------------------------------------------------------------- + #
 bot:
   # 실행 될 봇 토큰 (TOKEN) - 필수로 입력하세요!
-  token:
+  token: #
 
   # 봇 상태 설정 [ ONLINE (온라인), IDLE (자리비움), DND (다른 용무중) ]
   status: ONLINE
@@ -19,33 +19,35 @@ bot:
   # {user} 로 닉네임 불러오기
   discordMessage: ">> <{user}> {message}"
 
-  # 웹훅 URL
-  webhookUrl: 'URL 넣으세요.'
+  # 웹훅 URL - 필수로 입력하세요!
+  webhook:
+    url: #
+    avatarUrl: "https://mc-heads.net/head/"
 
   # 서버 열릴때
   onServer:
     channelId: "000000000000000000"
     # 알림 메시지
-    content:
+    content: #
     # 알림 임베드
     Embed:
-      title:
-      content:
-      footer:
-      color:
+      title:  #
+      content: #
+      footer: #
+      color: #
 
   # 서버 닫힐 때
   offServer:
     # 알림을 보낼 채널
-    channelID: "000000000000000000"
+    channelId: "000000000000000000"
     # 알림 메시지
-    content:
+    content: #
     # 알림 임베드
     Embed:
-      title:
-      content:
-      footer:
-      color:
+      title: #
+      content: #
+      footer: #
+      color: #
 
   channel:
     # 마인크래프트와 연동할 채팅 채널 ID

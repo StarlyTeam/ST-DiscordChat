@@ -30,7 +30,7 @@ public class MessageContent {
 
     private void initializeMessages(Pair<MessageType, ConfigurationSection> pair) {
         Map<String, String> messages = map.computeIfAbsent(pair.getFirst(), (unused) -> new HashMap<>());
-        pair.getSecond().getKeys(false).forEach(key ->
+        pair.getSecond().getKeys(true).forEach(key ->
                 messages.put(key, ChatColor.translateAlternateColorCodes('&', pair.getSecond().getString(key))));
     }
 

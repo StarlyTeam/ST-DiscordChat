@@ -6,14 +6,18 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.starly.discordchat.DiscordChat;
 import net.starly.discordchat.context.MessageContent;
 import net.starly.discordchat.context.MessageType;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@AllArgsConstructor
 public class MessageReceivedListener extends ListenerAdapter {
 
-    private final JavaPlugin plugin;
+    private JavaPlugin plugin;
+
+    public MessageReceivedListener(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -25,8 +29,7 @@ public class MessageReceivedListener extends ListenerAdapter {
         MessageChannel channel = event.getChannel();
 
         MessageContent config = MessageContent.getInstance();
-
-        if (channel.getId().equals(config.getMessage(MessageType.BOT, "channel.chat"))) {
+        if (channel.getId().equals(config.getMessage(MessageType.BOT, "channel.chat").orElse(null))) {
             config.getMessage(MessageType.BOT, "discordMessage").ifPresent(msg -> {
                 String replacedMessage = msg.replace("{user}", user.getName())
                                             .replace("{message}", message.getContentRaw());

@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.starly.core.bstats.Metrics;
 import net.starly.discordchat.bot.DiscordBotManager;
+import net.starly.discordchat.command.ReloadConfigCommand;
 import net.starly.discordchat.context.MessageContent;
 import net.starly.discordchat.listener.AsyncPlayerChatListener;
 import org.bukkit.Bukkit;
@@ -20,6 +21,10 @@ public class DiscordChat extends JavaPlugin {
     private DiscordBotManager bot;
     public String getString(String name) { return getConfig().getString(name); }
 
+    private String getStr(String path) {
+        return getConfig().getString(path);
+    }
+
     @Override
     public void onEnable() {
         /* SETUP
@@ -31,24 +36,12 @@ public class DiscordChat extends JavaPlugin {
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
         saveDefaultConfig();
         MessageContent.getInstance().initialize(getConfig());
-        this.bot = new DiscordBotManager(this);
-
-        TextChannel ServerOnOffCH = DiscordBotManager.getJda().getTextChannelById(getConfig().getString("bot.onServer.channelId"));
-
-        if (ServerOnOffCH == null) return;
-
-        ServerOnOffCH.sendMessage(getString("bot.onServer.content")).queue();
-
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setTitle(getString("bot.onServer.Embed.title"));
-        embed.setDescription(getString("bot.onServer.Embed.content"));
-        embed.setFooter(getString("bot.onServer.Embed.footer"));
-        embed.setColor(new Color(Integer.decode(getString("bot.onServer.Embed.color"))));
-        ServerOnOffCH.sendMessageEmbeds(embed.build()).queue();
+        if (getString("bot.webhook.url") == null) System.out.println("§e웹훅 URL을 필수로 입력해주세요!");
+        else { this.bot = new DiscordBotManager(this); sendOnOffMessage("on"); }
 
         /* COMMAND
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        // TODO: 수정
+        getCommand("discordchatreload").setExecutor(new ReloadConfigCommand());
 
         /* LISTENER
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
@@ -58,24 +51,26 @@ public class DiscordChat extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        TextChannel ServerOnOffCH = DiscordBotManager.getJda().getTextChannelById(getConfig().getString("bot.offServer.channelID"));
-
-        if (ServerOnOffCH == null) return;
-
-        ServerOnOffCH.sendMessage(getString("bot.offServer.content")).queue();
-
-        EmbedBuilder embed = new EmbedBuilder();
-        embed.setTitle(getString("bot.offServer.Embed.title"));
-        embed.setDescription(getString("bot.offServer.Embed.content"));
-        embed.setFooter(getString("bot.offServer.Embed.footer"));
-        embed.setColor(new Color(Integer.decode(getString("bot.offServer.Embed.color"))));
+        if (getString("bot.token") != null) sendOnOffMessage("off");
 
         if (this.bot != null) {
             this.bot.shutdown();
         }
     }
 
-    private void sendMessage() {
-        // TODO 하세요.
+    private void sendOnOffMessage(String name) {
+        TextChannel ServerOnOffCH = DiscordBotManager.getJda().getTextChannelById(getConfig().getString("bot." + name + "Server.channelId"));
+
+        if (ServerOnOffCH == null) return;
+
+        ServerOnOffCH.sendMessage(getString("bot." + name + "Server.content")).queue();
+
+        EmbedBuilder embed = new EmbedBuilder();
+        embed.setTitle(getString("bot." + name + "Server.Embed.title"));
+        embed.setDescription(getString("bot." + name + "Server.Embed.content"));
+        embed.setFooter(getString("bot." + name + "Server.Embed.footer"));
+        embed.setColor(new Color(Integer.decode(getString("bot." + name + "Server.Embed.color"))));
+
+        ServerOnOffCH.sendMessageEmbeds(embed.build()).queue();
     }
 }

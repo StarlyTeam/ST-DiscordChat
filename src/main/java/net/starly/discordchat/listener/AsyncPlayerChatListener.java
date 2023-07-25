@@ -17,7 +17,7 @@ public class AsyncPlayerChatListener implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         MessageContent config = MessageContent.getInstance();
-        String url = config.getMessage(MessageType.BOT, "webhookUrl").orElse(null);
+        String url = config.getMessage(MessageType.BOT, "webhook.url").orElse(null);
         WebhookClient client = new WebhookClientBuilder(url).build();
 
         Player player = event.getPlayer();
@@ -27,7 +27,7 @@ public class AsyncPlayerChatListener implements Listener {
 
         WebhookMessageBuilder builder = new WebhookMessageBuilder()
                 .setUsername(displayName)
-                .setAvatarUrl("https://crafatar.com/renders/head/" + uniqueId)
+                .setAvatarUrl(config.getMessage(MessageType.BOT, "webhook.avatarUrl").orElse(null) + uniqueId)
                 .setContent(message);
         client.send(builder.build());
     }
