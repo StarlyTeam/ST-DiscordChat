@@ -51,7 +51,9 @@ public class DiscordChat extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        if (getString("bot.token") != null) sendOnOffMessage("off");
+        if (this.bot == null) return;
+
+        sendOnOffMessage("off");
 
         if (this.bot != null) {
             this.bot.shutdown();

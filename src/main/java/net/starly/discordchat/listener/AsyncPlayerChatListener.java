@@ -18,6 +18,10 @@ public class AsyncPlayerChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         MessageContent config = MessageContent.getInstance();
         String url = config.getMessage(MessageType.BOT, "webhook.url").orElse(null);
+        if (url == null) {
+            System.out.println("§e 웹훅 URL이 연결되지 않았습니다.");
+            return;
+        }
         WebhookClient client = new WebhookClientBuilder(url).build();
 
         Player player = event.getPlayer();
